@@ -38,7 +38,11 @@ if (empty($proformaActual['cliente'])) {
 
 // Validar que la lista de productos NO esté vacía
 if (empty($proformaActual['detalles']) || count($proformaActual['detalles']) == 0) {
-    mostrarError("ERROR 06 - La lista de productos está vacía. Agregue al menos un producto.");
+    // En lugar de mostrar error, mostrar la proforma con un mensaje de advertencia
+    $_SESSION['mensaje_error'] = "La lista de productos está vacía. Agregue al menos un producto antes de ver el resumen.";
+
+    // Mostrar la proforma actual (con el cliente ya cargado)
+    $objControllerProforma->mostrarProformaActual();
     exit;
 }
 

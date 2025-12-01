@@ -81,7 +81,7 @@ class ResumenProforma extends formulario {
                 <button onclick="history.back()"
                         style="background:#6c757d; color:white; padding:15px 40px; font-size:1.2em;
                         border:none; border-radius:5px; cursor:pointer; font-weight:bold;">
-                    ◀️ Volver a Editar
+                    Volver a Editar
                 </button>
             </div>
         </div>

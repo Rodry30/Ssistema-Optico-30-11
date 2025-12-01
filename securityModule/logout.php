@@ -1,9 +1,11 @@
 <?php
-session_start();
-session_unset();
-session_destroy();
+// Incluye la clase SessionManager
+require_once("../shared/SessionManager.php");
 
-// Opcional: Mensaje de despedida
+// Cerrar correctamente la sesión
+SessionManager::logout();
+
+// Mostrar mensaje de despedida
 include_once("../shared/pantallaMensaje.php");
 $objMensaje = new pantallaMensaje();
 $objMensaje->mensajeShow(

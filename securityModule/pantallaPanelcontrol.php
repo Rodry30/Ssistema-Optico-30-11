@@ -165,7 +165,7 @@ class pantallaPanelControl extends formulario
                 ?>
 
                 <a href="logout.php" class="menu-item" style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <span>🚪 CERRAR SESIÓN</span>
+                    <span>CERRAR SESIÓN</span>
                 </a>
             </nav>
 

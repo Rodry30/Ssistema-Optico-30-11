@@ -56,8 +56,34 @@ class SessionManager
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
+        // Limpia variables de sesión
+        $_SESSION = [];
+
+        // Si se usa cookie de sesión, eliminarla en el cliente
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+
+        // Destruye la sesión del servidor
         session_unset();
         session_destroy();
+
+        // Regenerar id por si acaso
+        if (session_status() == PHP_SESSION_NONE) {
+            // nada
+        } else {
+            session_regenerate_id(true);
+        }
     }
 
     /**
