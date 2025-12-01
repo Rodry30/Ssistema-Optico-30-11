@@ -125,7 +125,7 @@ class controllerProforma {
         );
     }
 
-    // ========== MOSTRAR PROFORMA ==========
+    // ========== MOSTRAR VISTAS ==========
 
     public function mostrarProformaActual() {
         $proformaActual = $this->obtenerProformaActual();
@@ -133,6 +133,44 @@ class controllerProforma {
         include_once(__DIR__ . "/formularioProforma.php");
         $objForm = new formularioProforma();
         $objForm->formularioProformaShow($proformaActual['cliente'], null, $proformaActual);
+    }
+
+    public function mostrarResumenProforma() {
+        $proformaActual = $this->obtenerProformaActual();
+        $receta = isset($proformaActual['receta']) ? $proformaActual['receta'] : null;
+
+        include_once(__DIR__ . "/resumenProforma.php");
+        $objResumen = new ResumenProforma();
+        $objResumen->resumenProformaShow($proformaActual, $receta);
+    }
+
+    // ========== GUARDAR EN BASE DE DATOS ==========
+
+    public function guardarProforma() {
+        $proformaRam = $this->obtenerProformaActual();
+
+        // Validar que tenga cliente y productos
+        if(empty($proformaRam['cliente']) || empty($proformaRam['detalles'])) {
+            return 0;
+        }
+
+        include_once(__DIR__ . '/../../models/proforma.php');
+        $objProformaModel = new proforma();
+
+        // Extraer datos
+        $idCliente = $proformaRam['cliente']['idCliente'];
+        $total = $proformaRam['total'];
+        $detalles = $proformaRam['detalles'];
+
+        // Guardar en BD
+        $idGenerado = $objProformaModel->guardarProforma($idCliente, $total, $detalles);
+
+        // Si se guardó exitosamente, limpiar RAM
+        if($idGenerado > 0) {
+            unset($_SESSION['proforma_ram']);
+        }
+
+        return $idGenerado;
     }
 
     // ========== MÉTODOS AUXILIARES ==========
@@ -164,29 +202,6 @@ class controllerProforma {
     public function obtenerProformaActual() {
         $this->nuevaProforma();
         return $_SESSION['proforma_ram'];
-    }
-
-    public function guardarProforma() {
-        $proformaRam = $this->obtenerProformaActual();
-
-        if(empty($proformaRam['cliente']) || empty($proformaRam['detalles'])) {
-            return 0;
-        }
-
-        include_once(__DIR__ . '/../../models/proforma.php');
-        $objProformaModel = new proforma();
-
-        $idCliente = $proformaRam['cliente']['idCliente'];
-        $total = $proformaRam['total'];
-        $detalles = $proformaRam['detalles'];
-
-        $idGenerado = $objProformaModel->guardarProforma($idCliente, $total, $detalles);
-
-        if($idGenerado > 0) {
-            unset($_SESSION['proforma_ram']);
-        }
-
-        return $idGenerado;
     }
 }
 ?>

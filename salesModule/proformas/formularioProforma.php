@@ -52,7 +52,7 @@ class formularioProforma extends formulario
             <?php else: ?>
                 <!-- BOTÓN BUSCAR RECETA -->
                 <div style='margin: 15px 0;'>
-                    <form action='getReceta.php' method='POST' style='display:inline;'>
+                    <form action='getRecetaOpt.php' method='POST' style='display:inline;'>
                         <input type='submit' name='btnBuscarReceta' value='BUSCAR RECETA ÓPTICA'
                                style='background:#28a745; color:white; padding:8px 15px; border:none;
                            border-radius:4px; cursor:pointer; font-size:14px;'>
@@ -187,17 +187,23 @@ class formularioProforma extends formulario
 
             <!-- BOTONES DE ACCIÓN FINAL -->
             <div style='margin-top:30px; text-align:center; padding:20px; background:#f8f9fa; border-radius:5px;'>
-                <form action='getGuardarProforma.php' method='POST' style='display:inline;'>
-                    <input type='submit' name='btnGuardar' value='💾 GUARDAR PROFORMA'
-                           style='background:#007bff; color:white; padding:15px 40px;
-                           font-size:1.2em; border:none; border-radius:5px; cursor:pointer;
-                           font-weight:bold; margin-right:15px;'>
+
+                <!-- BOTÓN VER RESUMEN -->
+                <form action='getResumen.php' method='POST' style='display:inline;'>
+                    <input type='submit' name='btnVerResumen' value='📋 VER RESUMEN'
+                           style='background:#17a2b8; color:white; padding:15px 40px;
+               font-size:1.2em; border:none; border-radius:5px; cursor:pointer;
+               font-weight:bold; margin-right:15px;'>
                 </form>
 
-                <a href='getEnlaceProforma.php'
-                   style='background:#6c757d; color:white; padding:15px 40px;
-                   text-decoration:none; display:inline-block; font-size:1.2em;
-                   border-radius:5px; font-weight:bold;'>❌ CANCELAR</a>
+                <form action='../../securityModule/getPanel.php' method='POST' style='display:inline;'>
+                    <button type='submit'
+                            style='background:#6c757d; color:white; padding:15px 40px;
+                            border:none; border-radius:5px; cursor:pointer;
+                            font-size:1.2em; font-weight:bold;'>
+                        ❌ CANCELAR
+                    </button>
+                </form>
             </div>
         </div>
 
